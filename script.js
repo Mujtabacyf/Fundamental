@@ -1,68 +1,41 @@
-/* =================
-  TESTS, LOOK AT THESE
-  Reading tests will always help you discover your requirements.
-  You can make this window bigger. 
-   ===================
-*/
+var pics;
 
-const {
-  core: { test, expect, run },
-  prettify
-} = window.jestLite;
+function getNumberOrString(value) {
+  // Convert a string value to a number if possible
+  let number_value = Number(value);
+  if (Number.isNaN(number_value)) {
+    return value
+  } else {
+    return number_value
+  }
+}
 
-/* =================
-  FIND ELEMENTS
-  These are all the elements we will look for.
-   ===================
-*/
-const getHeader = document.querySelectorAll("header"),
-  getH1 = document.querySelectorAll("h1"),
-  getSiteHeader = document.querySelectorAll(".c-site-header"),
-  getAria = document.querySelectorAll('nav[aria-label="Main Site Links."]'),
-  getMain = document.querySelectorAll("main"),
-  getFooter = document.querySelectorAll("footer"),
-  getSiteFooter = document.querySelectorAll(".c-site-footer"),
-  getIFrame = document.querySelectorAll("iframe"),
-  getImage = document.querySelectorAll("img"),
-  getWords = document.body.innerText;
 
-/* =================
-   ASSERTIONS 
-   These are the things we check are true about your page.
-   Read and update your HTML to discover the requirements.
-   The tests will run every time you update your code.
-   ===================
-*/
-test("There is at least one header element", () => {
-  expect(getHeader.length).toBeGreaterThanOrEqual(1);
-});
-test("There is at least one h1", () => {
-  expect(getH1.length).toBeGreaterThanOrEqual(1);
-});
-test("There is only one header element with the class c-site-header", () => {
-  expect(getSiteHeader.length).toBe(1);
-});
-test("There is a nav element with an aria-label of Main Site Links.", () => {
-  expect(getAria.length).toBeGreaterThanOrEqual(1);
-});
-test("There is only one main element", () => {
-  expect(getMain.length).toBe(1);
-});
-test("There is at least one footer element", () => {
-  expect(getFooter.length).toBeGreaterThanOrEqual(1);
-});
-test("There is only one footer element with the class c-site-footer", () => {
-  expect(getSiteFooter.length).toBe(1);
-});
-test("There is embedded video", () => {
-  expect(getIFrame.length).toBeGreaterThanOrEqual(1);
-});
-test("There is at least one image", () => {
-  expect(getImage.length).toBeGreaterThanOrEqual(1);
-});
-test("There are at least 500 words on the page", () => {
-  expect(getWords.length).toBeGreaterThanOrEqual(500);
+pics = ['https://images.pexels.com/photos/47367/full-moon-moon-bright-sky-47367.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500', 'https://cdn.pixabay.com/photo/2015/04/23/21/59/tree-736877_960_720.jpg', 'https://i.pinimg.com/originals/fe/1f/40/fe1f402f03f4398be3a9f018c5ddc249.jpg', 'https://images.pexels.com/photos/3654869/pexels-photo-3654869.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500', 'https://images.pexels.com/photos/3489072/pexels-photo-3489072.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcvOBB4R0RX78pnoU1PHpE8zkSvGC3E_WKXA&usqp=CAU', 'https://cdn.pixabay.com/photo/2015/02/24/15/41/wolf-647528_960_720.jpg'];
+let element_picture = document.getElementById('picture');
+element_picture.setAttribute("src", pics[0]);
+
+
+document.getElementById('previous').addEventListener('click', (event) => {
+  let element_picture2 = document.getElementById('picture');
+  pics.unshift(pics.pop());
+  element_picture2.setAttribute("src", pics[0]);
+
 });
 
-const console = document.getElementById("tests");
-prettify.toHTML(run(), console);
+document.getElementById('next').addEventListener('click', (event) => {
+  pics.push(pics.shift());
+  let element_picture3 = document.getElementById('picture');
+  element_picture3.setAttribute("src", pics[0]);
+
+});
+
+document.getElementById('submit').addEventListener('click', (event) => {
+  let element_comments = document.getElementById('comments');
+  let new_div = document.createElement('div');
+  new_div.innerText = getNumberOrString(document.getElementById('add comment').value);
+
+  element_comments.appendChild(new_div);
+
+});
+
